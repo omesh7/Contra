@@ -15,12 +15,19 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install Flask for web server
+RUN pip install --no-cache-dir flask
+
 # Copy game files
 COPY . .
 
-# Set environment variables for pygame
+# Set environment variables for headless pygame
+ENV SDL_VIDEODRIVER=dummy
+ENV SDL_AUDIODRIVER=dummy
 ENV PYGAME_HIDE_SUPPORT_PROMPT=1
-# Remove dummy drivers to allow graphics
 
-# Default command
-CMD ["python", "main.py"]
+# Expose port 8080
+EXPOSE 8080
+
+# Start the web server
+CMD ["python", "web_server.py"]
