@@ -15,8 +15,10 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+
 # Install Flask for web server and pygbag for web game conversion
 RUN pip install --no-cache-dir flask pygbag
+
 
 # Copy game files
 COPY . .
@@ -31,3 +33,4 @@ EXPOSE 8080
 
 # Start the playable web game
 CMD ["python", "simple_web_game.py"]
+
